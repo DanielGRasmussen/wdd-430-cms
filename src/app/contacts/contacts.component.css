@@ -1,0 +1,10 @@
+.contacts-component {
+  width: 100%;
+  display: flex;
+}
+
+.contacts-component > div {
+  width: 100%;
+  max-width: 40vw;
+  margin: 0 auto;
+}
