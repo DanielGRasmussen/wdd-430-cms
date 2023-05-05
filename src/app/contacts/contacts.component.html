@@ -1,8 +1,8 @@
 <div class="contacts-component">
   <div>
-    <cms-contact-list></cms-contact-list>
+    <cms-contact-list (selectedContactEvent)="selectedContact = $event"></cms-contact-list>
   </div>
   <div>
-    <cms-contact-detail></cms-contact-detail>
+    <cms-contact-detail [contact]="selectedContact" *ngIf="selectedContact != undefined"></cms-contact-detail>
   </div>
 </div>
