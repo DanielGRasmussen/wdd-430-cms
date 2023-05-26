@@ -10,12 +10,11 @@ import { DocumentService } from "../document.service";
 export class DocumentsListComponent implements OnInit {
 	documents: Document[] = [];
 
-	onSelectedDocument(document: Document) {
-		this.documentService.documentSelectedEvent.emit(document);
-	}
-
 	constructor(private documentService: DocumentService) {
 		this.documents = [];
+		this.documentService.documentChangedEvent.subscribe((updatedDocuments: Document[]) => {
+			this.documents = updatedDocuments;
+		});
 	}
 
 	ngOnInit(): void {

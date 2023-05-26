@@ -1,22 +1,34 @@
-import { Component, Input } from '@angular/core';
-import { Contact } from '../contact.model';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Contact } from "../contact.model";
+import { ContactService } from "../contact.service";
 
 @Component({
-  selector: 'cms-contact-detail',
-  templateUrl: './contact-detail.component.html',
-  styleUrls: ['./contact-detail.component.css']
+	selector: "cms-contact-detail",
+	templateUrl: "./contact-detail.component.html",
+	styleUrls: ["./contact-detail.component.css"]
 })
-export class ContactDetailComponent {
-  @Input() contact!: Contact;
+export class ContactDetailComponent implements OnInit {
+	contact: Contact;
 
-  constructor() {
-    this.contact = new Contact(
-      "",//"1",
-      "",//"R. Kent Jackson",
-      "",//"jacksonk@byui.edu",
-      "",//"208-496-3771",
-      "",//"../../assets/images/jacksonk.jpg",
-      null
-    );
-  }
+	constructor(
+		private contactService: ContactService,
+		private route: ActivatedRoute,
+		private router: Router
+	) {
+		this.contact = new Contact("", "", "", "", "", null);
+	}
+
+	ngOnInit(): void {
+		this.route.params.subscribe(params => {
+			const id = params["id"];
+			const contact = this.contactService.getContact(id);
+			if (contact) { this.contact = contact }
+		});
+	}
+
+	onDelete(): void {
+		this.contactService.deleteContact(this.contact);
+		this.router.navigate(["/contacts"]);
+	}
 }

@@ -6,8 +6,8 @@
         <img class="contact-detail-img" [src]="contact.imageUrl" alt="{{contact.name}}" width="100">
       </div>
       <div class="col-xs-9 text-right contact-detail-buttons">
-        <a href="#" class="btn btn-info margin-right" role="button">Edit</a>
-        <a href="#" class="btn btn-danger" role="button">Delete</a>
+        <a class="btn btn-info margin-right" role="button" [routerLink]="'edit'">Edit</a>
+        <a class="btn btn-danger" role="button" (click)="onDelete()">Delete</a>
       </div>
     </div>
   </div>
