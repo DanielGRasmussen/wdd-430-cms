@@ -15,4 +15,20 @@
     <p>Email: {{contact.email}}</p>
     <p>Phone: {{contact.phone}}</p>
   </div>
+
+	<div class="row">
+		<div class="groupDisplay">
+			<label for="groupList">Group Contacts:</label>
+
+			<div class="row" id="groupList" style="min-height: 3rem;">
+
+				<div *ngFor="let contact of contact.group">
+					<div>
+						<cms-contact-item class="col-sm-11" [contact]="contact"></cms-contact-item>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </div>

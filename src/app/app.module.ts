@@ -19,6 +19,8 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { DocumentsEditComponent } from './documents/documents-edit/documents-edit.component';
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
+import { FormsModule } from "@angular/forms";
+import { DndModule } from "ng2-dnd";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
 		RouterOutlet,
 		RouterLink,
 		RouterLinkActive,
-		AppRoutingModule
+		AppRoutingModule,
+		FormsModule,
+		DndModule.forRoot()
 	],
   providers: [],
   bootstrap: [AppComponent]
