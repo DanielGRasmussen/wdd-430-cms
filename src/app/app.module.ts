@@ -21,6 +21,8 @@ import { DocumentsEditComponent } from './documents/documents-edit/documents-edi
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 import { FormsModule } from "@angular/forms";
 import { DndModule } from "ng2-dnd";
+import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { DndModule } from "ng2-dnd";
     MessageListComponent,
     DropdownDirective,
     DocumentsEditComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    ContactsFilterPipe
   ],
 	imports: [
 		BrowserModule,
@@ -48,7 +51,8 @@ import { DndModule } from "ng2-dnd";
 		RouterLinkActive,
 		AppRoutingModule,
 		FormsModule,
-		DndModule.forRoot()
+		DndModule.forRoot(),
+		HttpClientModule
 	],
   providers: [],
   bootstrap: [AppComponent]
