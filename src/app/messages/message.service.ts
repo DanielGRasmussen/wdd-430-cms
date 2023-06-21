@@ -16,9 +16,9 @@ export class MessageService {
 	}
 
 	fetchMessages() {
-		this.http.get<Message[]>("https://cms-wdd430-7af89-default-rtdb.firebaseio.com/messages.json")
+		this.http.get<{ messages: Message[] }>("http://localhost:3000/messages")
 			.subscribe(messages => {
-				this.messages = messages;
+				this.messages = messages.messages;
 				this.maxMessageId = this.getMaxId();
 				this.messages.sort((a, b) => a.subject > b.subject ? 1 : b.subject > a.subject ? -1 : 0);
 				this.messageChangeEvent.next(this.messages.slice());
@@ -26,16 +26,6 @@ export class MessageService {
 				console.log(error);
 			});
 		return this.messages.slice();
-	}
-
-	storeMessages() {
-		const messages = JSON.stringify(this.messages);
-		const headers = new HttpHeaders({ "Content-Type": "application/json" });
-
-		this.http.put("https://cms-wdd430-7af89-default-rtdb.firebaseio.com/messages.json", messages, { headers: headers })
-			.subscribe(() => {
-				this.messageChangeEvent.next(this.messages.slice());
-			});
 	}
 
 	getMessages() {
@@ -47,9 +37,22 @@ export class MessageService {
 	}
 
 	addMessage(message: Message) {
-		this.messages.push(message);
+		if (!message) {
+			return;
+		}
 
-		this.storeMessages();
+		const headers = new HttpHeaders({"Content-Type": "application/json"});
+
+		// add to database
+		this.http.post<{ message: Message }>("http://localhost:3000/messages",
+			message, { headers: headers })
+			.subscribe(
+				(responseData) => {
+					// add new message to messages
+					this.messages.push(responseData.message);
+					this.messageChangeEvent.next(this.messages.slice());
+				}
+			);
 	}
 
 	getMaxId(): number {
